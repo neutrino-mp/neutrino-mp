@@ -4028,7 +4028,7 @@ void CNeutrinoApp::tvMode( bool rezap )
 		CRecordManager::getInstance()->StopAutoRecord();
 	}
 #endif
-	if (mode != mode_webtv || mode != mode_webradio) {
+	if (mode != mode_webtv && mode != mode_webradio) {
 		frameBuffer->useBackground(false);
 		frameBuffer->paintBackground();
 	}
@@ -4276,7 +4276,7 @@ void CNeutrinoApp::radioMode( bool rezap)
 #endif
 	CRecordManager::getInstance()->StopAutoRecord();
 
-	if (mode != mode_webtv || mode != mode_webradio) {
+	if (mode != mode_webtv && mode != mode_webradio) {
 		frameBuffer->useBackground(false);
 		frameBuffer->paintBackground();
 	}
