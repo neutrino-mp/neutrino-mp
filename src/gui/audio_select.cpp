@@ -59,6 +59,11 @@ extern CAudioSetupNotifier	* audioSetupNotifier;
 CAudioSelectMenuHandler::CAudioSelectMenuHandler()
 {
 	width = 40;
+#if 0
+	mp = &CMoviePlayerGui::getInstance();
+	if (IS_WEBCHAN(g_Zapit->getCurrentServiceID()))
+		mp = &CMoviePlayerGui::getInstance(true);
+#endif
 }
 
 CAudioSelectMenuHandler::~CAudioSelectMenuHandler()
