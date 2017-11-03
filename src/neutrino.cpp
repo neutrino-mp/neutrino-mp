@@ -3998,8 +3998,14 @@ void CNeutrinoApp::saveEpg(bool cvfd_mode)
 
 void CNeutrinoApp::tvMode( bool rezap )
 {
+	if (mode == mode_webradio) {
+		CMoviePlayerGui::getInstance().setLastMode(mode_unknown);
+		CMoviePlayerGui::getInstance().stopPlayBack();
+		CVFD::getInstance()->ShowIcon(FP_ICON_TV, false);
+		rezap = true;
+	}
 	INFO("rezap %d current mode %d", rezap, mode);
-	if (mode == mode_radio) {
+	if (mode == mode_radio || mode == mode_webradio) {
 		if (g_settings.radiotext_enable && g_Radiotext) {
 			delete g_Radiotext;
 			g_Radiotext = NULL;
@@ -4030,7 +4036,7 @@ void CNeutrinoApp::tvMode( bool rezap )
 		CRecordManager::getInstance()->StopAutoRecord();
 	}
 #endif
-	if (mode != mode_webtv && mode != mode_webradio) {
+	if (mode != mode_webtv) {
 		frameBuffer->useBackground(false);
 		frameBuffer->paintBackground();
 	}
@@ -4253,7 +4259,7 @@ void CNeutrinoApp::radioMode( bool rezap)
 {
 	//printf("radioMode: rezap %s\n", rezap ? "yes" : "no");
 	INFO("rezap %d current mode %d", rezap, mode);
-	if (mode == mode_webtv || mode == mode_webradio) {
+	if (mode == mode_webtv) {
 		CMoviePlayerGui::getInstance().setLastMode(mode_unknown);
 		CMoviePlayerGui::getInstance().stopPlayBack();
 		CVFD::getInstance()->ShowIcon(FP_ICON_TV, false);
@@ -4278,7 +4284,7 @@ void CNeutrinoApp::radioMode( bool rezap)
 #endif
 	CRecordManager::getInstance()->StopAutoRecord();
 
-	if (mode != mode_webtv && mode != mode_webradio) {
+	if (mode != mode_webtv) {
 		frameBuffer->useBackground(false);
 		frameBuffer->paintBackground();
 	}
