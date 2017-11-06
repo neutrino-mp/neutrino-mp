@@ -3,7 +3,7 @@ EPGMenu.epgplus Vorschau-Übersicht
 EPGMenu.eventinfo Info zur Sendung
 EPGMenu.eventlist Vorschau aktuelles Programm
 EPGMenu.head EPG - Programminformation
-EPGMenu.streaminfo Technische Information
+EPGMenu.streaminfo Technische Informationen
 EPGPlus.actions Aktionen
 EPGPlus.bybouquet_mode bouquetweise
 EPGPlus.bypage_mode seitenweise
@@ -2288,7 +2288,7 @@ streaminfo.bitrate Bitrate
 streaminfo.casystems Cryptsysteme
 streaminfo.framerate Bildrate
 streaminfo.framerate_unknown unbekannt
-streaminfo.head Tech. Information
+streaminfo.head Technische Informationen
 streaminfo.not_available nicht verfügbar
 streaminfo.osd_resolution OSD-Auflösung
 streaminfo.resolution Auflösung
