@@ -154,7 +154,7 @@ void CVFD::count_down() {
 }
 
 void CVFD::wake_up() {
- 	if(fd < 0) return;
+	if(fd < 0) return;
 
 	if (atoi(g_settings.lcd_setting_dim_time.c_str()) > 0) {
 		timeout_cnt = atoi(g_settings.lcd_setting_dim_time.c_str());
@@ -429,6 +429,9 @@ void CVFD::showVolume(const char vol, const bool force_update)
 		return;
 	volume = vol;
 
+	if (g_settings.lcd_setting[SNeutrinoSettings::LCD_SHOW_VOLUME] == 2 /* off */)
+		return;
+
 	bool allowed_mode = (mode == MODE_TVRADIO || mode == MODE_AUDIO || mode == MODE_MENU_UTF8);
 	if (!allowed_mode)
 		return;
@@ -465,6 +468,9 @@ void CVFD::showPercentOver(const unsigned char perc, const bool /*perform_update
 	percentOver = perc;
 
 	if (mode == MODE_AUDIO && origin != MODE_AUDIO) // exclusive access for audio mode
+		return;
+
+	if (g_settings.lcd_setting[SNeutrinoSettings::LCD_SHOW_VOLUME] == 2 /* off */)
 		return;
 
 	bool allowed_mode = (mode == MODE_TVRADIO || mode == MODE_AUDIO || mode == MODE_MENU_UTF8);
