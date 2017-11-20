@@ -100,7 +100,7 @@ int CAudioSelectMenuHandler::exec(CMenuTarget* parent, const std::string &action
 int CAudioSelectMenuHandler::doMenu ()
 {
 	int mode = CNeutrinoApp::getInstance()->getMode();
-	if (mode == NeutrinoMessages::mode_webtv) {
+	if (mode == NeutrinoModes::mode_webtv) {
 		CMoviePlayerGui::getInstance(true).selectAudioPid();
 		return menu_return::RETURN_EXIT;
 	}
