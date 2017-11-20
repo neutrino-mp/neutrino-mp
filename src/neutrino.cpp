@@ -3833,20 +3833,18 @@ void CNeutrinoApp::ExitRun(int can_shutdown)
 	if (cs_get_revision() != 10)
 		bright = g_settings.lcd_setting[SNeutrinoSettings::LCD_DEEPSTANDBY_BRIGHTNESS];
 #endif
-	if (timer_minutes || leds)
+
+	/* not platform specific */
+	FILE *f = fopen("/tmp/.timer", "w");
+	if (f)
 	{
-		FILE *f = fopen("/tmp/.timer", "w");
-		if (f)
-		{
-			fprintf(stderr, "timer_wakeup: %ld\n", timer_minutes * 60);
-			fprintf(f, "%ld\n", timer_minutes * 60);
-			fprintf(f, "%d\n", leds);
-			fprintf(f, "%d\n", bright);
-			fclose(f);
-		}
-		else
-			perror("fopen /tmp/.timer");
+		fprintf(f, "%ld\n", timer_minutes ? timer_minutes * 60 : 0);
+		fprintf(f, "%d\n", leds);
+		fprintf(f, "%d\n", bright);
+		fclose(f);
 	}
+	else
+		perror("fopen /tmp/.timer");
 
 	delete g_RCInput;
 	g_RCInput = NULL;
