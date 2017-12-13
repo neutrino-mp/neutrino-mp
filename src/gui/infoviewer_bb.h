@@ -111,9 +111,8 @@ class CInfoViewerBB
 		void getBBIconInfo(void);
 		bool checkBBIcon(const char * const icon, int *w, int *h);
 
-		void paint_ca_icons(int, const char*, int&);
+		void paint_ca_icon(int, const char*, int&);
 		void paint_ca_bar();
-		void showOne_CAIcon();
 
 		static void* scrambledThread(void *arg);
 		void scrambledCheck(bool force=false);
@@ -131,8 +130,8 @@ class CInfoViewerBB
 		int bottom_bar_offset, InfoHeightY_Info;
 		bool is_visible;
 
+		void paint_ca_icons(int);
 		void showSysfsHdd(void);
-		void showIcon_CA_Status(int);
 		void showIcon_16_9();
 		void showIcon_RadioText(bool rt_available);
 		void showIcon_VTXT();
@@ -140,6 +139,7 @@ class CInfoViewerBB
 		void showIcon_Resolution();
 		void showIcon_Tuner(void);
 		void showIcon_DD(void);
+		void showIcon_CA();
 		void showBBButtons(bool paintFooter = false);
 		void paintshowButtonBar(bool noTimer = false);
 		void getBBButtonInfo(void);
