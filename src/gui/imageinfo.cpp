@@ -48,7 +48,7 @@
 #endif
 #include <nhttpd/yconfig.h>
 
-#define VERSION_FILE TARGET_PREFIX "/.version"
+#define VERSION_FILE "/.version"
 
 using namespace std;
 
