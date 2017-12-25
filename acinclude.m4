@@ -314,6 +314,7 @@ AC_ARG_WITH(boxtype,
 	[case "${withval}" in
 		tripledragon|coolstream|spark|azbox|generic|armbox)
 			BOXTYPE="$withval"
+			test $BOXTYPE = "coolstream" -a -z "$BOXMODEL" && BOXMODEL="hd1" # default to hd1 as before
 		;;
 		*)
 			AC_MSG_ERROR([bad value $withval for --with-boxtype])
