@@ -39,6 +39,12 @@ class CComponentsScrollBar;
 class CCButtonSelect;
 
 ///cc item types
+typedef struct cc_type_t
+{
+	int 		id;
+	std::string 	name; 
+} cc_type_struct_t;
+
 typedef enum
 {
 	CC_ITEMTYPE_GENERIC,
@@ -59,6 +65,7 @@ typedef enum
 	CC_ITEMTYPE_FOOTER,
 	CC_ITEMTYPE_FRM_ICONFORM,
 	CC_ITEMTYPE_FRM_WINDOW,
+	CC_ITEMTYPE_FRM_WINDOW_MAX,
 	CC_ITEMTYPE_FRM_EXT_TEXT,
 	CC_ITEMTYPE_LABEL,
 	CC_ITEMTYPE_PROGRESSBAR,
