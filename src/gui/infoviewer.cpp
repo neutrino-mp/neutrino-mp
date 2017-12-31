@@ -1757,8 +1757,8 @@ void CInfoViewer::display_Info(const char *current, const char *next,
 			else
 				txt_cur_start->setDimensionsAll(InfoX, CurrInfoY - height, info_time_width, height);
 			txt_cur_start->setText(runningStart, CTextBox::NO_AUTO_LINEBREAK, g_Font[SNeutrinoSettings::FONT_TYPE_INFOBAR_INFO], colored_event_C ? COL_COLORED_EVENTS_TEXT : COL_INFOBAR_TEXT);
-			if (txt_cur_event->isPainted())
-				txt_cur_event->hide();
+			if (txt_cur_start->isPainted())
+				txt_cur_start->hide();
 			txt_cur_start->paint(CC_SAVE_SCREEN_YES);
 		}
 
