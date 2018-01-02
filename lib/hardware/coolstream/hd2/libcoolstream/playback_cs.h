@@ -74,6 +74,9 @@ public:
 	void GetTitles(std::vector<int> &playlists, std::vector<std::string> &titles, int &current);
 	void SetTitle(int title);
 	uint64_t GetReadCount(void);
+
+	/* dummies for compatibility with libstb-hal */
+	void GetMetadata(std::vector<std::string> /*&keys*/, std::vector<std::string> /*&values*/){};
 };
 
 #endif // __PLAYBACK_CS_H_
