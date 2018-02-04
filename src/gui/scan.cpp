@@ -393,14 +393,15 @@ neutrino_msg_t CScanTs::handleMsg(neutrino_msg_t msg, neutrino_msg_data_t data)
 //printf("CScanTs::handleMsg: x %d xpos2 %d width %d w %d\n", x, xpos2, width, w);
 	char buffer[128];
 	char str[256];
+	int w_to_radar = xpos_radar - xpos2 - 10;
 	switch (msg) {
 		case NeutrinoMessages::EVT_SCAN_SATELLITE:
-			paintLine(xpos2, ypos_cur_satellite, w - (8*fw), (char *)data);
+			paintLine(xpos2, ypos_cur_satellite, w_to_radar, (char *)data);
 			break;
 
 		case NeutrinoMessages::EVT_SCAN_NUM_TRANSPONDERS:
 			sprintf(buffer, "%ld", data);
-			paintLine(xpos2, ypos_transponder, w - (8*fw), buffer);
+			paintLine(xpos2, ypos_transponder, w_to_radar, buffer);
 			total = data;
 			snprintf(str, sizeof(buffer), "scan: %d/%d", done, total);
 			CVFD::getInstance()->showMenuText(0, str, -1, true);
@@ -410,7 +411,7 @@ neutrino_msg_t CScanTs::handleMsg(neutrino_msg_t msg, neutrino_msg_data_t data)
 			//if (total == 0) data = 0; // why ??
 			done = data;
 			sprintf(buffer, "%d/%d", done, total);
-			paintLine(xpos2, ypos_transponder, w - (8*fw), buffer);
+			paintLine(xpos2, ypos_transponder, (ypos_transponder > ypos_radar + 66) ? w : w_to_radar, buffer);
 			snprintf(str, sizeof(buffer), "scan %d/%d", done, total);
 			CVFD::getInstance()->showMenuText(0, str, -1, true);
 			break;
@@ -426,10 +427,10 @@ neutrino_msg_t CScanTs::handleMsg(neutrino_msg_t msg, neutrino_msg_data_t data)
 					snprintf(buffer,sizeof(buffer), "%u %c %d %s %s %s", freq, transponder::pol(feparams->polarization), feparams->symbol_rate/1000, f, s, m);
 				else
 					snprintf(buffer,sizeof(buffer), "%u %d %s %s", freq, feparams->symbol_rate/1000, s, m);
-				paintLine(xpos2, ypos_frequency, w - (7*fw), buffer);
+				paintLine(xpos2, ypos_frequency, (ypos_frequency > ypos_radar + 66) ? w : w_to_radar, buffer);
 			}
 			break;
-
+		/* just assume that provider etc is always below radar picture */
 		case NeutrinoMessages::EVT_SCAN_PROVIDER:
 			paintLine(xpos2, ypos_provider, w, (char*)data); // UTF-8
 			break;
