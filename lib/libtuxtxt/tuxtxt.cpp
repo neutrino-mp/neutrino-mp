@@ -5576,7 +5576,9 @@ void CopyBB2FB()
 
 	/* copy line25 in normal height */
 	if (!pagecatching )
-		memmove(dst + (24 * fontheight) * stride, src + (24 * fontheight) * stride, stride * fontheight);
+		memmove(dst + (24 * fontheight) * stride,
+			src + (24 * fontheight) * stride,
+			stride * fontheight * sizeof(fb_pixel_t));
 
 	if (transpmode)
 		fillcolor = transp;
