@@ -29,11 +29,7 @@
 #define KEY_TTZOOM	KEY_FN_2
 #define KEY_REVEAL	KEY_FN_D
 
-#if HAVE_SPARK_HARDWARE
 #define MARK_FB(a, b, c, d) if (p == lfb) CFrameBuffer::getInstance()->mark(a, b, (a) + (c), (b) + (d))
-#else
-#define MARK_FB(a, b, c, d)
-#endif
 
 extern cVideo * videoDecoder;
 
@@ -2766,6 +2762,7 @@ void Menu_Init(char *menu, int current_pid, int menuitem, int hotindex)
 		menu[MenuLine[M_PID]*Menu_Width + 27] = '?';
 	/* render menu */
 	PosY = Menu_StartY;
+	CFrameBuffer::getInstance()->waitForIdle();
 	for (line = 0; line < Menu_Height; line++)
 	{
 		PosX = Menu_StartX;
@@ -4951,6 +4948,7 @@ void RenderMessage(int Message)
 	else
 		msg = &message_3[menulanguage][0];
 
+	CFrameBuffer::getInstance()->waitForIdle();
 	/* render infobar */
 	PosX = StartX + fontwidth+5;
 	PosY = StartY + fontheight*16;
@@ -5537,23 +5535,7 @@ void CopyBB2FB()
 	/* copy backbuffer to framebuffer */
 	if (!zoommode)
 	{
-#if HAVE_SPARK_HARDWARE
 		f->blit2FB(lbb, var_screeninfo.xres, var_screeninfo.yres, 0, 0, 0, 0, true);
-#elif defined(HAVE_COOL_HARDWARE)
-		f->fbCopyArea(var_screeninfo.xres, var_screeninfo.yres, 0, 0, 0, var_screeninfo.yres);
-#else
-		if ((uint32_t)stride > var_screeninfo.xres) {
-			fb_pixel_t *lfb_ = lfb;
-			fb_pixel_t *lbb_ = lbb;
-			for (uint32_t i1 = 0; i1 < var_screeninfo.yres; i1++) {
-				memcpy(lfb_, lbb_, var_screeninfo.xres * sizeof(fb_pixel_t));
-				lfb_ += stride;
-				lbb_ += stride;
-			}
-		}
-		else
-			memcpy(lfb, lbb, fix_screeninfo.line_length*var_screeninfo.yres);
-#endif
 
 		/* adapt background of backbuffer if changed */
 		if (StartX > 0 && *lfb != *lbb) {
@@ -5590,25 +5572,7 @@ void CopyBB2FB()
 	if (screenmode == 1)
 	{
 		screenwidth = ( TV43STARTX );
-#if HAVE_SPARK_HARDWARE
-		int cx = var_screeninfo.xres - TV43STARTX;	/* x start */
-		int cw = TV43STARTX;				/* width */
-		int cy = StartY;
-		int ch = 24*fontheight;
-		f->blit2FB(lbb, cw, ch, cx, cy, cx, cy, true);
-#else
-		fb_pixel_t *topdst = dst;
-		size_t width = (ex - screenwidth) * sizeof(fb_pixel_t);
-
-		topsrc += screenwidth;
-		topdst += screenwidth;
-		for (i=0; i < 24*fontheight; i++)
-		{
-			memmove(topdst, topsrc, width);
-			topdst += stride;
-			topsrc += stride;
-		}
-#endif
+		f->blit2FB(lbb, var_screeninfo.xres, var_screeninfo.yres, TV43STARTX, 0, TV43STARTX, 0, true);
 	}
 	else if (screenmode == 2)
 		screenwidth = ( TV169FULLSTARTX );
