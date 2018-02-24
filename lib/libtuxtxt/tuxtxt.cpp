@@ -5528,9 +5528,7 @@ void CopyBB2FB()
 {
 	fb_pixel_t *src, *dst, *topsrc;
 	int fillcolor, i, screenwidth, swtmp;
-#if HAVE_SPARK_HARDWARE || HAVE_COOL_HARDWARE
 	CFrameBuffer *f = CFrameBuffer::getInstance();
-#endif
 
 	/* line 25 */
 	if (!pagecatching && use_gui)
@@ -5617,11 +5615,7 @@ void CopyBB2FB()
 	else
 		screenwidth = stride;
 
-	for (i = StartY; i>0;i--)
-	{
-		for (swtmp=0; swtmp<=screenwidth; swtmp++)
-			*(dst - i * stride + swtmp) = bgra[fillcolor];
-	}
+	f->paintBox(0, 0, screenwidth, StartY, bgra[fillcolor]);
 
 	for (i = 12*fontheight; i; i--)
 	{
@@ -5632,14 +5626,8 @@ void CopyBB2FB()
 		src += stride;
 	}
 
-	for (i = var_screeninfo.yres - StartY - 25*fontheight; i >= 0;i--)
-	{
-		for (swtmp=0; swtmp<= screenwidth;swtmp++)
-			*(dst + stride * (fontheight + i) + swtmp) =  bgra[fillcolor];
-	}
-#if HAVE_SPARK_HARDWARE
 	f->mark(0, 0, var_screeninfo.xres, var_screeninfo.yres);
-#endif
+	f->paintBox(0, StartY + 25 * fontheight, screenwidth, var_screeninfo.yres, bgra[fillcolor]);
 }
 
 /******************************************************************************
