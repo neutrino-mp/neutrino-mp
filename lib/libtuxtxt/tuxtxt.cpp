@@ -5524,7 +5524,7 @@ void CreateLine25()
 void CopyBB2FB()
 {
 	fb_pixel_t *src, *dst, *topsrc;
-	int fillcolor, i, screenwidth, swtmp;
+	int fillcolor, i, screenwidth;
 	CFrameBuffer *f = CFrameBuffer::getInstance();
 
 	/* line 25 */
