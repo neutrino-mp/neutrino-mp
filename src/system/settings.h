@@ -4,7 +4,7 @@
   Copyright (C) 2001 Steffen Hehn 'McClean'
   Homepage: http://dbox.cyberphoria.org/
 
-  Copyright (C) 2007-2012 Stefan Seyfried
+  Copyright (C) 2007-2014, 2016-2018 Stefan Seyfried
 
   Kommentar:
 
@@ -857,15 +857,15 @@ struct SNeutrinoSettings
 		ITEM_FILEPLAY = 23,
 		ITEM_TOOLS = 24,
 		ITEM_LUA = 25,
-		ITEM_FILEPLAY_VIDEO = 26,
-		ITEM_HDDMENU = 27,
-		ITEM_AUDIOPLAY = 28,
-		ITEM_INETPLAY = 29,
-		ITEM_NETSETTINGS = 30,
-		ITEM_SWUPDATE = 31,
-		ITEM_LIVESTREAM_RESOLUTION = 32,
-		ITEM_ADZAP = 33,
-		ITEM_FILEPLAY_AUDIO = 34,
+		ITEM_HDDMENU = 26,
+		ITEM_AUDIOPLAY = 27,
+		ITEM_INETPLAY = 28,
+		ITEM_NETSETTINGS = 29,
+		ITEM_SWUPDATE = 30,
+		ITEM_LIVESTREAM_RESOLUTION = 31,
+		ITEM_ADZAP = 32,
+		ITEM_FILEPLAY_AUDIO = 33,
+		ITEM_FILEPLAY_VIDEO = 34,
 		ITEM_TIMESHIFT = 35,
 		ITEM_MAX // MUST be always the last in the list
 	} USER_ITEM;
