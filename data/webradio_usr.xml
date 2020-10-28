@@ -2,4 +2,7 @@
 <webradios name="[WebRadio]">
 	<webradio title="80s80s - Main Stream" urlkey="0" url="http://streams.80s80s.de/web/mp3-192/streams.80s80s.de/" description="" genre="80s80s" />
 	<webradio title="80s80s - Depeche Mode" urlkey="0" url="http://streams.80s80s.de/dm/mp3-192/streams.80s80s.de/" description="" genre="80s80s" />
+	<webradio title="Radio BOB!" url="http://streams.radiobob.de/bob-live/mp3-192/mediaplayer"/>
+	<webradio title="R.SA" url="http://streams.rsa-sachsen.de/rsa-live/mp3-192/mediaplayerrsa"/>
+	<webradio title="Best of 80s" url="http://bestof80s.stream.laut.fm/best_of_80s"/>
 </webradios>
