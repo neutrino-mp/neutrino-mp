@@ -239,7 +239,9 @@ uint8_t CSdt::FixServiceType(uint8_t type)
 			(type==0xc5) || (type==0xc6)  || (type == 0x11) ||
 			(type == 0x16) || (type == 0x19) || (type == 0x1f) ||
 			(type == 0x82) || (type == 0x87) || (type == 0xd3))
-		return 1;
+		return ST_DIGITAL_TELEVISION_SERVICE;
+	if (type == 0x0A)
+		return ST_DIGITAL_RADIO_SOUND_SERVICE;
 	return type;
 }
 
@@ -247,6 +249,8 @@ bool CSdt::ParseServiceDescriptor(ServiceDescription * service, ServiceDescripto
 {
 	uint8_t service_type = FixServiceType(sd->getServiceType());
 	uint8_t real_type = sd->getServiceType();
+	if (real_type == 0x0A)
+		real_type = ST_DIGITAL_RADIO_SOUND_SERVICE;
 	t_service_id service_id = service->getServiceId();
 	bool free_ca = service->getFreeCaMode();
 
