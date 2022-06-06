@@ -330,17 +330,18 @@ int CBEChannelWidget::exec(CMenuTarget* parent, const std::string & /*actionKey*
 */
 		else if (msg == (neutrino_msg_t) g_settings.key_tvradio_mode || msg == CRCInput::RC_tv || msg == CRCInput::RC_radio)
 		{
-			if (msg == CRCInput::RC_radio)
-				mode = CZapitClient::MODE_RADIO;
-			else if (msg == CRCInput::RC_tv)
-				mode = CZapitClient::MODE_TV;
-			else // g_settings.key_tvradio_mode
+			if (msg == (neutrino_msg_t)g_settings.key_tvradio_mode)
 			{
+				/* this branch first, because e.g. key_tvradiomode might be RC_tv */
 				if (mode == CZapitClient::MODE_TV)
 					mode = CZapitClient::MODE_RADIO;
 				else
 					mode = CZapitClient::MODE_TV;
 			}
+			else if (msg == CRCInput::RC_radio)
+				mode = CZapitClient::MODE_RADIO;
+			else if (msg == CRCInput::RC_tv)
+				mode = CZapitClient::MODE_TV;
 
 			Channels = mode == CZapitClient::MODE_TV ? &(g_bouquetManager->Bouquets[bouquet]->tvChannels) : &(g_bouquetManager->Bouquets[bouquet]->radioChannels);
 
