@@ -293,6 +293,7 @@ void CFbAccelSTi::paintRect(const int x, const int y, const int dx, const int dy
 void CFbAccelSTi::blit2FB(void *fbbuff, uint32_t width, uint32_t height, uint32_t xoff, uint32_t yoff, uint32_t xp, uint32_t yp, bool transp)
 {
 	int x, y, dw, dh, bottom;
+	size_t xtra_off = 0;
 	x = xoff;
 	y = yoff;
 	dw = width - xp;
@@ -303,8 +304,12 @@ void CFbAccelSTi::blit2FB(void *fbbuff, uint32_t width, uint32_t height, uint32_
 	/* we can blit anything from [ backbuffer <--> backbuffer + backbuf_sz ]
 	 * if the source is outside this, then it will be memmove()d to start of backbuffer */
 	void *tmpbuff = backbuffer;
-	if ((fbbuff >= backbuffer) && (uint8_t *)fbbuff + mem_sz <= (uint8_t *)backbuffer + backbuf_sz)
+	if ((fbbuff >= backbuffer) && (uint8_t *)fbbuff + mem_sz <= (uint8_t *)backbuffer + backbuf_sz) {
 		tmpbuff = fbbuff;
+		/* if fbbuff is in backbuffer, we need to consider a possible offset */
+		xtra_off = (uint8_t *)fbbuff - (uint8_t *)backbuffer;
+	}
+
 	unsigned long ulFlags = 0;
 	if (!transp) /* transp == false (default): use transparency from source alphachannel */
 		ulFlags = BLT_OP_FLAGS_BLEND_SRC_ALPHA|BLT_OP_FLAGS_BLEND_DST_MEMORY; // we need alpha blending
@@ -353,7 +358,7 @@ void CFbAccelSTi::blit2FB(void *fbbuff, uint32_t width, uint32_t height, uint32_
 	memset(&blt_data, 0, sizeof(STMFBIO_BLT_DATA));
 	blt_data.operation  = BLT_OP_COPY;
 	blt_data.ulFlags    = ulFlags;
-	blt_data.srcOffset  = backbuf_off;
+	blt_data.srcOffset  = backbuf_off + xtra_off;
 	blt_data.srcPitch   = width * 4;
 	blt_data.dstOffset  = lbb_off;
 	blt_data.dstPitch   = stride;
